@@ -1,10 +1,12 @@
 pipeline {
     agent {
     node {
-        label 'Agent-1'
-        
+        label 'Agent-1'   
     }
-}
+    }
+    environment { 
+        GREETING = 'HELLO JENKINS'
+    }
 //build
     stages {
         stage('Build') {
@@ -19,10 +21,14 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                sh """
+                    echo "Here i wrote shell script"
+                    env
+                """
             }
         }
     }
+
     //post
     post { 
         always { 
